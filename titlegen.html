@@ -1,0 +1,392 @@
+<html>
+  <head>
+    <title>Research title generator!</title>
+    <style type="text/css">
+      @import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700);
+      @media all and (max-width:840px){html {font-size: 14px;}}
+      @media all and (max-width:640px){html {font-size: 11px;}}
+      html {height: 100%;}
+      body {margin: auto; width: 100%; max-width: 1000px; background-color: #ecf0f1; font-family: "PT Serif", serif;}
+      #research {height: 45%; text-align: center; width: 75%; margin: 10% auto; font-size: 3em; color: #1c2e30;}
+      #button {text-align: center; display: block; width: 90%; padding: 0.5em; font-size: 2em; background-color: #2980b9; text-decoration: none; color: #ecf0f1; margin: auto;
+      transition: background 0.3s ease, width 0.3s ease; -webkit-transition: background 0.3s ease, width 0.3s ease; -moz-transition: background 0.3s ease, width 0.3s ease; -o-transition: background 0.3s ease, width 0.3s ease;}
+      a {text-decoration: none;}
+      #button:hover {background-color: #3498db; width: 95%;, text-align: center;}
+      #disclaimer {padding: 0.5em; width: 75%; margin: auto;}
+    </style>
+  </head>
+  <body>
+    <h1 id="research">Click generate!</h1>
+    <a href="#"><span id="button">Generate!</span></a>
+    <div id="disclaimer">Disclaimer: Any and all resemblances to any research papers in existence is purely coincidental. That said, most of the randomly generated ideas may not be good ones.
+    This is version 1.1 of the Research Title Generator. All rights reserved. Copyright Carl Joshua Quines 2015.</div>
+    <script type="text/javascript">
+      <!--
+      
+      var usenames = new Array(
+        "Feasibility",
+        "Efficacy",
+        "Utilization",
+        "Potential",
+        "Ability",
+        "Capability",
+        "Capacity",
+        "Effectiveness"
+      )
+
+      var effectnames = new Array(
+        "Lowering",
+        "Extending",
+        "Increasing",
+        "Reducing"
+      )
+
+      var processnames = new Array(
+        "Production",
+        "Creation",
+        "Synthesis"
+      )
+
+      var qualities = new Array(
+        "Blood Glucose",
+        "Life Expectancy",
+        "Bleeding Times",
+        "Reproduction",
+        "Blood Sugar",
+        "Blood Coagulation"
+      )
+
+      var agentthings = new Array(
+        "Antihyperlidemic",
+        "Anticoagulant",
+        "Antibacterial",
+        "Sequestering",
+        "Phytoremediating"
+      )
+
+      var chemicals = new Array(
+        "Ethanol",
+        "Cellulose",
+        "Glucose"
+      )
+
+      var cidalnames = new Array(
+        "Pediculicidal",
+        "Insecticidal",
+        "Pesticidal",
+        "Molluscicidal",
+        "Larvicidal"
+      )
+
+      var animals = new Array(
+        "Dog (Canis familiaris)",
+        "Janitor Fish (Hypostomus plecostomus)",
+        "Chicken (Gallus domesticus)",
+        "Tilapia (Oreochromis niloticus)"
+      )
+
+      var neganimals = new Array(
+        "Mosquito (Culex pipiens)",
+        "Earthworm (Lumbricus terresirus)",
+        "Golden Kuhol (Pomacea canalicuata)",
+        "Termites (Reticulitermes hesperus)",
+        "Dog Ticks (Rhicephalus sanguineus)"
+      )
+
+      var plantnames = new Array(
+        "Butones-butonesan (Gomphrena globosa)",
+        "Alateris (Muntingia calabura)",
+        "Soro-soro (Euphorbia nerrifolia)",
+        "Taheebo (Tabebuia avellanedae)",
+        "Banana (Musa paradisiaca)",
+        "Yacon (Polimnia sanchifolia)",
+        "Dalanghita (Citrus nobilis)",
+        "Aloe Vera (Aloe barbadensis)",
+        "Broken Rice (Oryza Sativa)",
+        "Anonang (Chroma dichtoma)",
+        "Talisay (Terminalia catappa)",
+        "Tieza (Pouteria Campechiana)",
+        "Karael (Albizia procera)",
+        "Makopa (Syzygium samarangense)",
+        "Eggplant (Solanum melongena)",
+        "Siling Labuyo (Capcicum frutesecens)",
+        "Duhat (Syzygium cumuni)",
+        "Mango (Mangifera Indinca)",
+        "Pencil Cactus (Euphorbia tirucali)",
+        "Oregano (Origanum vulgare)",
+        "Calamansi (Citrus miocrocarpa)",
+        "Cassava (Manihot esculenta)",
+        "Cogon Grass (Imperata cylindrica)",
+        "Malunggay (Moringa olifera)",
+        "Water Lily (Nymphaea odorata)",
+        "Sambong (Blumea balsamifera)",
+        "Onion (Allium cepa)",
+        "Lime (Citrus aurantifolia)",
+        "Sour Orange (Citrus aurantium)",
+        "Grapefruit (Citrus paradise)",
+        "Bamboo (Bambusa vulgaris)",
+        "Makahiya (Mimosa pudica)",
+        "Rice (Oryza sativa)",
+        "Jackfruit (Artocarpus heterophyllus)",
+        "Atis (Annona squamosa)",
+        "Alugbati (Basella lucida)",
+        "Lanzones (Lansium domesticum)",
+        "Orange (Citrus sinesis)",
+        "Chayote (Sechium edule)"
+      )
+
+      var bacteria = new Array(
+        "Staphylococcus aureus",
+        "Eschearichia coli",
+        "Psuedomonas aeruginosa",
+        "Klebsila pneumoniae",
+        "Haemophilus Influenza"
+      )
+
+      var plantparts = new Array(
+        "Leaves",
+        "Roots",
+        "Stems",
+        "Fibers",
+        "Seeds"
+      )
+
+      var items = new Array(
+        "Latex",
+        "Primer",
+        "Primer Paint",
+        "Paint",
+        "Chalk",
+        "Wax",
+        "Biodegradable Plastic",
+        "Bioplastic",
+        "Sweetener",
+        "Pesticide",
+        "Insecticide",
+        "Hand Sanitizer",
+        "Biodiesel",
+        "Coffee",
+        "Soap",
+        "Detergent",
+        "Insect Repellant",
+        "Meat Tender",
+        "Diuretic",
+        "Shoe Polish",
+        "Floor Wax",
+        "Floor Polish",
+        "Leather",
+        "Cooking Oil",
+        "Starch",
+        "Plastic",
+        "Activated Carbon",
+        "Recycled Paper",
+        "Ink",
+        "Ceramics",
+        "Biofuel",
+        "Bioelectricty",
+        "Cardboard"
+      )
+
+      var negitems = new Array(
+        "Heavy Metal",
+        "Oil Spill",
+        "Metal",
+        "Poison",
+        "Toxin"
+      )
+
+      var a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q;
+      // a is reserved for randomtitle
+      // b, c, d, e, f are reserved for top-level functions
+      // g, h is reserved for factorgen
+      // i, j, k is reserved for plantgen
+      // l, m, n, o, p is reserved for productgen
+      // q is reserved for Generate
+
+      function randomtitle() {
+          a = Math.floor(Math.random() * 30);
+          if (a <= 4) {
+              return process();
+          } else if (a <= 9) {
+              return substitute();
+          } else if (a <= 14) {
+              return use();
+          } else if (a <= 17) {
+              return effect();
+          } else if (a <= 19) {
+              return antibacterial();
+          } else if (a <= 21) {
+              return agent();
+          } else if (a <= 24) {
+              return compare();
+          } else if (a <= 26) {
+              return chem();
+          } else if (a <= 27) {
+              return combine();
+          } else if (a <= 28) {
+              return cidal();
+          } else {
+              return both();
+          }
+      }
+
+      function factorgen() {
+          g = qualities[Math.floor(Math.random() * qualities.length)];
+          h = animals[Math.floor(Math.random() * animals.length)];
+          return g + " in " + h;
+      }
+
+      function plantgen() {
+          i = plantnames[Math.floor(Math.random() * plantnames.length)];
+          j = plantparts[Math.floor(Math.random() * plantparts.length)];
+          k = Math.floor(Math.random() * 4);
+          if (k == 0) {
+              return i;
+          } else if (k == 1) {
+              return i + " Extract";
+          } else if (k == 2) {
+              return i + " " + j;
+          } else {
+              return i + " " + j + " Extract";
+          }
+      }
+
+      function productgen() {
+          l = items[Math.floor(Math.random() * items.length)];
+          m = negitems[Math.floor(Math.random() * negitems.length)];
+          n = Math.floor(Math.random() * 11);
+          o = Math.floor(Math.random() * 11);
+          if (n == 0) {
+              p = l + " Substitute";
+          } else if (n == 1) {
+              p = "Component of " + l;
+          } else if (n == 2) {
+              p = "Additive for " + l;
+          } else if (n == 3) {
+              p = m + " Eliminator";
+          } else if (n == 4) {
+              p = m + " Indicator";
+          } else if (n == 5) {
+              p = m + " Sensor";
+          } else {
+              p = "Source of " + l;
+          }
+          if (o <= 1) {
+              return "Alternative " + p;
+          } else if (o == 2) {
+              return "Cheaper " + p;
+          } else {
+              return p;
+          }
+      }
+
+      function process() {
+          b = processnames[Math.floor(Math.random() * processnames.length)];
+          c = items[Math.floor(Math.random() * items.length)];
+          d = plantgen();
+          return "The " + b + " of " + c + " from " + d;
+      }
+
+      function substitute() {
+          b = plantgen();
+          c = productgen();
+          return b + " as " + c;
+      }
+
+      function use() {
+          b = usenames[Math.floor(Math.random() * usenames.length)];
+          c = plantgen();
+          d = productgen();
+          return "The " + b + " of " + c + " as " + d;
+      }
+
+      function effect() {
+          b = usenames[Math.floor(Math.random() * usenames.length)];
+          c = plantgen();
+          d = effectnames[Math.floor(Math.random() * effectnames.length)];
+          e = factorgen();
+          return "The " + b + " of " + c + " in " + d + " " + e;
+      }
+
+      function antibacterial() {
+          b = plantgen();
+          c = bacteria[Math.floor(Math.random() * bacteria.length)];
+          d = items[Math.floor(Math.random() * items.length)];
+          e = Math.floor(Math.random() * 4);
+          if (e == 0) {
+              return "Antibacterial Screening from " + b + " against " + c + " for the Production of Antibacterial " + d;
+          } else {
+              return "Antibacterial Screening from " + b + " against " + c;
+          }
+      }
+
+      function agent() {
+          b = usenames[Math.floor(Math.random() * usenames.length)];
+          c = plantgen();
+          d = agentthings[Math.floor(Math.random() * agentthings.length)];
+          return b + " of " + c + " as " + d + " Agent";
+      }
+
+      function compare() {
+          b = plantgen();
+          c = items[Math.floor(Math.random() * items.length)];
+          d = Math.floor(Math.random() * 3);
+          if (d == 0) {
+              return "Comparative Study between Modified " + c + " from " + b + " and Commercial " + c;
+          } else {
+              return "Comparative Study between Modified " + c + " and Commercial " + c;
+          }
+      }
+
+      function chem() {
+          b = chemicals[Math.floor(Math.random() * chemicals.length)];
+          c = processnames[Math.floor(Math.random() * processnames.length)];
+          d = plantgen();
+          e = Math.floor(Math.random() * 2);
+          if (e == 0) {
+              return b + " " + c + " from " + d;
+          } else {
+              return "The Extraction of " + b + " from " + d;
+          }
+      }
+
+      function combine() {
+          b = usenames[Math.floor(Math.random() * usenames.length)];
+          c = plantgen();
+          d = items[Math.floor(Math.random() * items.length)];
+          e = productgen();
+          return "The " + b + " of Mixture of " + c + " and " + d + " as " + e;
+      }
+
+      function cidal() {
+          b = cidalnames[Math.floor(Math.random() * cidalnames.length)];
+          c = plantgen();
+          return "The " + b + " Effect of " + c;
+      }
+
+      function both() {
+          b = plantgen();
+          c = plantgen();
+          d = productgen();
+          return b + " and " + c + " as " + d;
+      }
+      
+      // IE 8 is annoying
+      var btn = document.getElementById("button");
+      var rsrch = document.getElementById("research");
+      
+      if (btn.addEventListener) {
+          btn.addEventListener("click", Generate);
+      } else if (btn.attachEvent) {
+          btn.attachEvent("onclick", Generate);
+      }
+
+      function Generate() {
+          q = randomtitle()
+          rsrch.innerHTML = q
+      }
+      
+      //-->
+    </script>
+  </body>
+</html>
