@@ -22,6 +22,10 @@
     This is version 1.1 of the Research Title Generator. All rights reserved. Copyright Carl Joshua Quines 2015.</div>
     <script type="text/javascript">
       <!--
+
+      function choose(list) {
+        return list[Math.floor(Math.random() * qualities.length)];
+      }
       
       var usenames = new Array(
         "Feasibility",
@@ -231,14 +235,14 @@
       }
 
       function factorgen() {
-          g = qualities[Math.floor(Math.random() * qualities.length)];
-          h = animals[Math.floor(Math.random() * animals.length)];
+          g = choose(qualities);
+          h = choose(animals);
           return g + " in " + h;
       }
 
       function plantgen() {
-          i = plantnames[Math.floor(Math.random() * plantnames.length)];
-          j = plantparts[Math.floor(Math.random() * plantparts.length)];
+          i = choose(plantnames);
+          j = choose(plantparts);
           k = Math.floor(Math.random() * 4);
           if (k == 0) {
               return i;
@@ -252,8 +256,8 @@
       }
 
       function productgen() {
-          l = items[Math.floor(Math.random() * items.length)];
-          m = negitems[Math.floor(Math.random() * negitems.length)];
+          l = choose(items);
+          m = choose(negitems);
           n = Math.floor(Math.random() * 11);
           o = Math.floor(Math.random() * 11);
           if (n == 0) {
@@ -281,8 +285,8 @@
       }
 
       function process() {
-          b = processnames[Math.floor(Math.random() * processnames.length)];
-          c = items[Math.floor(Math.random() * items.length)];
+          b = choose(processnames);
+          c = choose(items);
           d = plantgen();
           return "The " + b + " of " + c + " from " + d;
       }
@@ -294,24 +298,24 @@
       }
 
       function use() {
-          b = usenames[Math.floor(Math.random() * usenames.length)];
+          b = choose(usenames);
           c = plantgen();
           d = productgen();
           return "The " + b + " of " + c + " as " + d;
       }
 
       function effect() {
-          b = usenames[Math.floor(Math.random() * usenames.length)];
+          b = choose(usenames);
           c = plantgen();
-          d = effectnames[Math.floor(Math.random() * effectnames.length)];
+          d = choose(effectnames);
           e = factorgen();
           return "The " + b + " of " + c + " in " + d + " " + e;
       }
 
       function antibacterial() {
           b = plantgen();
-          c = bacteria[Math.floor(Math.random() * bacteria.length)];
-          d = items[Math.floor(Math.random() * items.length)];
+          c = choose(bacteria);
+          d = choose(items);
           e = Math.floor(Math.random() * 4);
           if (e == 0) {
               return "Antibacterial Screening from " + b + " against " + c + " for the Production of Antibacterial " + d;
@@ -321,15 +325,15 @@
       }
 
       function agent() {
-          b = usenames[Math.floor(Math.random() * usenames.length)];
+          b = choose(usenames);
           c = plantgen();
-          d = agentthings[Math.floor(Math.random() * agentthings.length)];
+          d = choose(agentthings);
           return b + " of " + c + " as " + d + " Agent";
       }
 
       function compare() {
           b = plantgen();
-          c = items[Math.floor(Math.random() * items.length)];
+          c = choose(items);
           d = Math.floor(Math.random() * 3);
           if (d == 0) {
               return "Comparative Study between Modified " + c + " from " + b + " and Commercial " + c;
@@ -339,8 +343,8 @@
       }
 
       function chem() {
-          b = chemicals[Math.floor(Math.random() * chemicals.length)];
-          c = processnames[Math.floor(Math.random() * processnames.length)];
+          b = choose(chemicals);
+          c = choose(processnames);
           d = plantgen();
           e = Math.floor(Math.random() * 2);
           if (e == 0) {
@@ -351,15 +355,15 @@
       }
 
       function combine() {
-          b = usenames[Math.floor(Math.random() * usenames.length)];
+          b = choose(usenames);
           c = plantgen();
-          d = items[Math.floor(Math.random() * items.length)];
+          d = choose(items);
           e = productgen();
           return "The " + b + " of Mixture of " + c + " and " + d + " as " + e;
       }
 
       function cidal() {
-          b = cidalnames[Math.floor(Math.random() * cidalnames.length)];
+          b = choose(cidalnames);
           c = plantgen();
           return "The " + b + " Effect of " + c;
       }
