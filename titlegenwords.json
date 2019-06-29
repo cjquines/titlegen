@@ -7,7 +7,8 @@
         "Ability",
         "Capability",
         "Capacity",
-        "Effectiveness"
+        "Effectiveness",
+        "Use"
     ],
     "effectnames": [
         "Lowering",

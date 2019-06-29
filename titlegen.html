@@ -20,137 +20,133 @@
     <a href="#"><span id="button">Generate!</span></a>
     <div id="disclaimer">Disclaimer: Any and all resemblances to any research papers in existence is purely coincidental. That said, most of the randomly generated ideas may not be good ones.
     This is version 1.1 of the Research Title Generator. All rights reserved. Copyright Carl Joshua Quines 2015.</div>
-    <script type="text/javascript">
-      <!--
+<script type="text/javascript">
+var w;
+var request = new XMLHttpRequest();
+request.open("GET", "titlegenwords.json");
+request.responseType = "json";
+request.send();
+request.onload = function() { w = request.response; }
 
-      var w;
-      var request = new XMLHttpRequest();
-      request.open("GET", "titlegenwords.json");
-      request.responseType = "json";
-      request.send();
-      request.onload = function() { w = request.response; }
+function choose(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
 
-      function choose(list) {
-        return list[Math.floor(Math.random() * list.length)];
-      }
+function weighted_choose(list) {
+  var new_list = [];
+  for (var i = 0; i < list.length; i++) {
+    for (var j = 0; j < list[i][1]; j++) {
+      new_list.push(list[i][0]);
+    }
+  }
+  return choose(new_list);
+}
 
-      function weighted_choose(list) {
-        var new_list = [];
-        for (var i = 0; i < list.length; i++) {
-            for (var j = 0; j < list[i][1]; j++) {
-                new_list.push(list[i][0]);
-            }
-        }
-        return choose(new_list);
-      }
+function randomtitle() {
+  return weighted_choose([
+    [use(), 18],
+    [antibacterial(), 3],
+    [compare(), 3],
+    [chem(), 3],
+    [process(), 5],
+    [effect(), 4],
+    [eliminate(), 3],
+    [cidal(), 3],
+  ]);
+}
 
-      function randomtitle() {
-          return weighted_choose([
-              [use(), 18],
-              [antibacterial(), 3],
-              [compare(), 3],
-              [chem(), 3],
-              [process(), 5],
-              [effect(), 4],
-              [eliminate(), 3],
-              [cidal(), 3],
-          ]);
-      }
+function partgen() {
+  return choose([
+    `${choose(w.plantnames)}`,
+    `${choose(w.plantnames)} Extract`,
+    `${choose(w.plantnames)} ${choose(w.plantparts)}`,
+    `${choose(w.plantnames)} ${choose(w.plantparts)} Extract`,
+  ]);
+}
 
-      function partgen() {
-          return choose([
-              `${choose(w.plantnames)}`,
-              `${choose(w.plantnames)} Extract`,
-              `${choose(w.plantnames)} ${choose(w.plantparts)}`,
-              `${choose(w.plantnames)} ${choose(w.plantparts)} Extract`,
-          ]);
-      }
+function plantgen() {
+  return weighted_choose([
+    [`${partgen()} `, 5],
+    [`${partgen()} and ${partgen()} `, 2],
+    [`Mixture of ${partgen()} and ${choose(w.items)}`, 2],
+  ]);
+}
 
-      function plantgen() {
-          return weighted_choose([
-              [`${partgen()} `, 5],
-              [`${partgen()} and ${partgen()} `, 2],
-              [`Mixture of ${partgen()} and ${choose(w.items)}`, 2],
-          ]);
-      }
+function use() {
+  return weighted_choose([
+    ["", 2],
+    [`The ${choose(w.usenames)} of `, 3],
+  ]) + plantgen() + weighted_choose([
+    [" as ", 3],
+    [" as Alternative ", 1],
+    [" as Cheaper ", 1],
+  ]) + weighted_choose([
+    [`${choose(w.items)} Substitute`, 2],
+    [`Component of ${choose(w.items)}`, 1],
+    [`Additive for ${choose(w.items)}`, 1],
+    [`${choose(w.negitems)} Eliminator`, 2],
+    [`${choose(w.items)} Indicator`, 1],
+    [`${choose(w.negitems)} Indicator`, 1],
+    [`${choose(w.items)} Indicator`, 1],
+    [`${choose(w.negitems)} Sensor`, 1],
+    [`Source of ${choose(w.items)}`, 2],
+    [`${choose(w.agentthings)} Agent`, 2],
+  ]);
+}
 
-      function use() {
-          return weighted_choose([
-              ["", 2],
-              [`The ${choose(w.usenames)} of `, 3],
-          ]) + plantgen() + weighted_choose([
-              [" as ", 3],
-              [" as Alternative ", 1],
-              [" as Cheaper ", 1],
-          ]) + weighted_choose([
-              [`${choose(w.items)} Substitute`, 2],
-              [`Component of ${choose(w.items)}`, 1],
-              [`Additive for ${choose(w.items)}`, 1],
-              [`${choose(w.negitems)} Eliminator`, 2],
-              [`${choose(w.items)} Indicator`, 1],
-              [`${choose(w.negitems)} Indicator`, 1],
-              [`${choose(w.items)} Indicator`, 1],
-              [`${choose(w.negitems)} Sensor`, 1],
-              [`Source of ${choose(w.items)}`, 2],
-              [`${choose(w.agentthings)} Agent`, 2],
-          ]);
-      }
+function antibacterial() {
+  return `Antibacterial Screening from ${partgen()} against ${choose(w.bacteria)}`
+  + weighted_choose([
+    ["", 2],
+    [` for the Production of Antibacterial ${choose(w.items)}`, 1],
+  ]);
+}
 
-      function antibacterial() {
-          return `Antibacterial Screening from ${partgen()} against ${choose(w.bacteria)}`
-          + weighted_choose([
-              ["", 2],
-              [` for the Production of Antibacterial ${choose(w.items)}`, 1],
-          ]);
-      }
+function compare() {
+  var item = choose(w.items);
+  return `Comparative Study between Modified ${item}`
+  + weighted_choose([
+    [` from ${partgen()}`, 3],
+    ["", 5],
+  ]) + ` and Commercial ${item}`;
+}
 
-      function compare() {
-          var item = choose(w.items);
-          return `Comparative Study between Modified ${item}`
-          + weighted_choose([
-              [` from ${partgen()}`, 3],
-              ["", 5],
-          ]) + ` and Commercial ${item}`;
-      }
+function chem() {
+  return choose([
+    `${choose(w.chemicals)} ${choose(w.processnames)} from ${partgen()}`,
+    `The Extraction of ${choose(w.chemicals)} from ${partgen()}`,
+  ]);
+}
 
-      function chem() {
-          return choose([
-              `${choose(w.chemicals)} ${choose(w.processnames)} from ${partgen()}`,
-              `The Extraction of ${choose(w.chemicals)} from ${partgen()}`,
-          ]);
-      }
+function process() {
+  return `The ${choose(w.processnames)} of ${choose(w.items)} from ${partgen()}`;
+}
 
-      function process() {
-          return `The ${choose(w.processnames)} of ${choose(w.items)} from ${partgen()}`;
-      }
+function effect() {
+  return `The ${choose(w.usenames)} of ${partgen()} in ${choose(w.effectnames)} ${choose(w.qualities)} in ${choose(w.animals)}`;
+}
 
-      function effect() {
-          return `The ${choose(w.usenames)} of ${partgen()} in ${choose(w.effectnames)} ${choose(w.qualities)} in ${choose(w.animals)}`;
-      }
+function eliminate() {
+  return `The ${choose(w.usenames)} of ${plantgen()} to Eliminate ${choose(w.animals)}`;
+}
 
-      function eliminate() {
-          return `The ${choose(w.usenames)} of ${plantgen()} to Eliminate ${choose(w.animals)}`;
-      }
+function cidal() {
+  return `The ${choose(w.cidalnames)} Effect of ${plantgen()}`;
+}
 
-      function cidal() {
-          return `The ${choose(w.cidalnames)} Effect of ${plantgen()}`;
-      }
-      
-      // IE 8 is annoying
-      var btn = document.getElementById("button");
-      var rsrch = document.getElementById("research");
-      
-      if (btn.addEventListener) {
-          btn.addEventListener("click", Generate);
-      } else if (btn.attachEvent) {
-          btn.attachEvent("onclick", Generate);
-      }
+// IE 8 is annoying
+var btn = document.getElementById("button");
+var rsrch = document.getElementById("research");
 
-      function Generate() {
-          rsrch.innerHTML = randomtitle();
-      }
-      
-      //-->
-    </script>
+if (btn.addEventListener) {
+    btn.addEventListener("click", Generate);
+} else if (btn.attachEvent) {
+    btn.attachEvent("onclick", Generate);
+}
+
+function Generate() {
+    rsrch.innerHTML = randomtitle();
+}
+</script>
   </body>
 </html>
