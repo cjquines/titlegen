@@ -23,6 +23,13 @@
     <script type="text/javascript">
       <!--
 
+      var w;
+      var request = new XMLHttpRequest();
+      request.open("GET", "titlegenwords.json");
+      request.responseType = "json";
+      request.send();
+      request.onload = function() { w = request.response; }
+
       function choose(list) {
         return list[Math.floor(Math.random() * list.length)];
       }
@@ -36,178 +43,6 @@
         }
         return choose(new_list);
       }
-      
-      var usenames = [
-        "Feasibility",
-        "Efficacy",
-        "Utilization",
-        "Potential",
-        "Ability",
-        "Capability",
-        "Capacity",
-        "Effectiveness",
-      ];
-
-      var effectnames = [
-        "Lowering",
-        "Extending",
-        "Increasing",
-        "Reducing",
-      ];
-
-      var processnames = [
-        "Production",
-        "Creation",
-        "Synthesis",
-      ];
-
-      var qualities = [
-        "Blood Glucose",
-        "Life Expectancy",
-        "Bleeding Times",
-        "Reproduction",
-        "Blood Sugar",
-        "Blood Coagulation",
-      ];
-
-      var agentthings = [
-        "Antihyperlidemic",
-        "Anticoagulant",
-        "Antibacterial",
-        "Sequestering",
-        "Phytoremediating",
-      ];
-
-      var chemicals = [
-        "Ethanol",
-        "Cellulose",
-        "Glucose",
-      ];
-
-      var cidalnames = [
-        "Pediculicidal",
-        "Insecticidal",
-        "Pesticidal",
-        "Molluscicidal",
-        "Larvicidal",
-      ];
-
-      var animals = [
-        "Dog (Canis familiaris)",
-        "Janitor Fish (Hypostomus plecostomus)",
-        "Chicken (Gallus domesticus)",
-        "Tilapia (Oreochromis niloticus)",
-      ];
-
-      var neganimals = [
-        "Mosquito (Culex pipiens)",
-        "Earthworm (Lumbricus terresirus)",
-        "Golden Kuhol (Pomacea canalicuata)",
-        "Termites (Reticulitermes hesperus)",
-        "Dog Ticks (Rhicephalus sanguineus)",
-      ];
-
-      var plantnames = [
-        "Butones-butonesan (Gomphrena globosa)",
-        "Alateris (Muntingia calabura)",
-        "Soro-soro (Euphorbia nerrifolia)",
-        "Taheebo (Tabebuia avellanedae)",
-        "Banana (Musa paradisiaca)",
-        "Yacon (Polimnia sanchifolia)",
-        "Dalanghita (Citrus nobilis)",
-        "Aloe Vera (Aloe barbadensis)",
-        "Broken Rice (Oryza Sativa)",
-        "Anonang (Chroma dichtoma)",
-        "Talisay (Terminalia catappa)",
-        "Tieza (Pouteria Campechiana)",
-        "Karael (Albizia procera)",
-        "Makopa (Syzygium samarangense)",
-        "Eggplant (Solanum melongena)",
-        "Siling Labuyo (Capcicum frutesecens)",
-        "Duhat (Syzygium cumuni)",
-        "Mango (Mangifera Indinca)",
-        "Pencil Cactus (Euphorbia tirucali)",
-        "Oregano (Origanum vulgare)",
-        "Calamansi (Citrus miocrocarpa)",
-        "Cassava (Manihot esculenta)",
-        "Cogon Grass (Imperata cylindrica)",
-        "Malunggay (Moringa olifera)",
-        "Water Lily (Nymphaea odorata)",
-        "Sambong (Blumea balsamifera)",
-        "Onion (Allium cepa)",
-        "Lime (Citrus aurantifolia)",
-        "Sour Orange (Citrus aurantium)",
-        "Grapefruit (Citrus paradise)",
-        "Bamboo (Bambusa vulgaris)",
-        "Makahiya (Mimosa pudica)",
-        "Rice (Oryza sativa)",
-        "Jackfruit (Artocarpus heterophyllus)",
-        "Atis (Annona squamosa)",
-        "Alugbati (Basella lucida)",
-        "Lanzones (Lansium domesticum)",
-        "Orange (Citrus sinesis)",
-        "Chayote (Sechium edule)",
-      ];
-
-      var bacteria = [
-        "Staphylococcus aureus",
-        "Eschearichia coli",
-        "Psuedomonas aeruginosa",
-        "Klebsila pneumoniae",
-        "Haemophilus Influenza",
-      ];
-
-      var plantparts = [
-        "Leaves",
-        "Roots",
-        "Stems",
-        "Fibers",
-        "Seeds",
-      ];
-
-      var items = [
-        "Latex",
-        "Primer",
-        "Primer Paint",
-        "Paint",
-        "Chalk",
-        "Wax",
-        "Biodegradable Plastic",
-        "Bioplastic",
-        "Sweetener",
-        "Pesticide",
-        "Insecticide",
-        "Hand Sanitizer",
-        "Biodiesel",
-        "Coffee",
-        "Soap",
-        "Detergent",
-        "Insect Repellant",
-        "Meat Tender",
-        "Diuretic",
-        "Shoe Polish",
-        "Floor Wax",
-        "Floor Polish",
-        "Leather",
-        "Cooking Oil",
-        "Starch",
-        "Plastic",
-        "Activated Carbon",
-        "Recycled Paper",
-        "Ink",
-        "Ceramics",
-        "Biofuel",
-        "Bioelectricty",
-        "Cardboard",
-      ];
-
-      var negitems = [
-        "Heavy Metal",
-        "Oil Spill",
-        "Metal",
-        "Poison",
-        "Toxin",
-      ];
 
       function randomtitle() {
           return weighted_choose([
@@ -224,10 +59,10 @@
 
       function partgen() {
           return choose([
-              `${choose(plantnames)}`,
-              `${choose(plantnames)} Extract`,
-              `${choose(plantnames)} ${choose(plantparts)}`,
-              `${choose(plantnames)} ${choose(plantparts)} Extract`,
+              `${choose(w.plantnames)}`,
+              `${choose(w.plantnames)} Extract`,
+              `${choose(w.plantnames)} ${choose(w.plantparts)}`,
+              `${choose(w.plantnames)} ${choose(w.plantparts)} Extract`,
           ]);
       }
 
@@ -235,70 +70,70 @@
           return weighted_choose([
               [`${partgen()} `, 5],
               [`${partgen()} and ${partgen()} `, 2],
-              [`Mixture of ${partgen()} and ${choose(items)}`, 2],
+              [`Mixture of ${partgen()} and ${choose(w.items)}`, 2],
           ]);
       }
 
       function use() {
           return weighted_choose([
               ["", 2],
-              [`The ${choose(usenames)} of `, 3],
+              [`The ${choose(w.usenames)} of `, 3],
           ]) + plantgen() + weighted_choose([
               [" as ", 3],
               [" as Alternative ", 1],
               [" as Cheaper ", 1],
           ]) + weighted_choose([
-              [`${choose(items)} Substitute`, 2],
-              [`Component of ${choose(items)}`, 1],
-              [`Additive for ${choose(items)}`, 1],
-              [`${choose(negitems)} Eliminator`, 2],
-              [`${choose(items)} Indicator`, 1],
-              [`${choose(negitems)} Indicator`, 1],
-              [`${choose(items)} Indicator`, 1],
-              [`${choose(negitems)} Sensor`, 1],
-              [`Source of ${choose(items)}`, 2],
-              [`${choose(agentthings)} Agent`, 2],
+              [`${choose(w.items)} Substitute`, 2],
+              [`Component of ${choose(w.items)}`, 1],
+              [`Additive for ${choose(w.items)}`, 1],
+              [`${choose(w.negitems)} Eliminator`, 2],
+              [`${choose(w.items)} Indicator`, 1],
+              [`${choose(w.negitems)} Indicator`, 1],
+              [`${choose(w.items)} Indicator`, 1],
+              [`${choose(w.negitems)} Sensor`, 1],
+              [`Source of ${choose(w.items)}`, 2],
+              [`${choose(w.agentthings)} Agent`, 2],
           ]);
       }
 
       function antibacterial() {
-          return `Antibacterial Screening from ${plantgen()} against ${choose(bacteria)}`
+          return `Antibacterial Screening from ${partgen()} against ${choose(w.bacteria)}`
           + weighted_choose([
               ["", 2],
-              [` for the Production of Antibacterial ${choose(items)}`, 1],
+              [` for the Production of Antibacterial ${choose(w.items)}`, 1],
           ]);
       }
 
       function compare() {
-          var item = choose(items);
+          var item = choose(w.items);
           return `Comparative Study between Modified ${item}`
           + weighted_choose([
-              [` from ${plantgen()}`, 3],
+              [` from ${partgen()}`, 3],
               ["", 5],
           ]) + ` and Commercial ${item}`;
       }
 
       function chem() {
           return choose([
-              `${choose(chemicals)} ${choose(processnames)} from ${plantgen()}`,
-              `The Extraction of ${choose(chemicals)} from ${plantgen()}`,
+              `${choose(w.chemicals)} ${choose(w.processnames)} from ${partgen()}`,
+              `The Extraction of ${choose(w.chemicals)} from ${partgen()}`,
           ]);
       }
 
       function process() {
-          return `The ${choose(processnames)} of ${choose(items)} from ${plantgen()}`;
+          return `The ${choose(w.processnames)} of ${choose(w.items)} from ${partgen()}`;
       }
 
       function effect() {
-          return `The ${choose(usenames)} of ${plantgen()} in ${choose(effectnames)} ${choose(qualities)} in ${choose(animals)}`;
+          return `The ${choose(w.usenames)} of ${partgen()} in ${choose(w.effectnames)} ${choose(w.qualities)} in ${choose(w.animals)}`;
       }
 
       function eliminate() {
-          return `The ${choose(usenames)} of ${plantgen()} to Eliminate ${choose(animals)}`;
+          return `The ${choose(w.usenames)} of ${plantgen()} to Eliminate ${choose(w.animals)}`;
       }
 
       function cidal() {
-          return `The ${choose(cidalnames)} Effect of ${plantgen()}`;
+          return `The ${choose(w.cidalnames)} Effect of ${plantgen()}`;
       }
       
       // IE 8 is annoying
