@@ -24,7 +24,17 @@
       <!--
 
       function choose(list) {
-        return list[Math.floor(Math.random() * qualities.length)];
+        return list[Math.floor(Math.random() * list.length)];
+      }
+
+      function weighted_choose(list) {
+        var new_list = [];
+        for (var i = 0; i < list.length; i++) {
+            for (var j = 0; j < list[i][1]; j++) {
+                new_list.push(list[i][0]);
+            }
+        }
+        return choose(new_list);
       }
       
       var usenames = new Array(
@@ -199,180 +209,105 @@
         "Toxin"
       )
 
-      var a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q;
-      // a is reserved for randomtitle
-      // b, c, d, e, f are reserved for top-level functions
-      // g, h is reserved for factorgen
-      // i, j, k is reserved for plantgen
-      // l, m, n, o, p is reserved for productgen
-      // q is reserved for Generate
-
       function randomtitle() {
-          a = Math.floor(Math.random() * 30);
-          if (a <= 4) {
-              return process();
-          } else if (a <= 9) {
-              return substitute();
-          } else if (a <= 14) {
-              return use();
-          } else if (a <= 17) {
-              return effect();
-          } else if (a <= 19) {
-              return antibacterial();
-          } else if (a <= 21) {
-              return agent();
-          } else if (a <= 24) {
-              return compare();
-          } else if (a <= 26) {
-              return chem();
-          } else if (a <= 27) {
-              return combine();
-          } else if (a <= 28) {
-              return cidal();
-          } else {
-              return both();
-          }
+          return weighted_choose([
+              [process(), 4],
+              [substitute(), 4],
+              [use(), 4],
+              [effect(), 4],
+              [antibacterial(), 3],
+              [agent(), 3],
+              [compare(), 3],
+              [chem(), 2],
+              [combine(), 2],
+              [cidal(), 2],
+              [both(), 2],
+          ]);
       }
 
       function factorgen() {
-          g = choose(qualities);
-          h = choose(animals);
-          return g + " in " + h;
+          return `${choose(qualities)} in ${choose(animals)}`;
       }
 
       function plantgen() {
-          i = choose(plantnames);
-          j = choose(plantparts);
-          k = Math.floor(Math.random() * 4);
-          if (k == 0) {
-              return i;
-          } else if (k == 1) {
-              return i + " Extract";
-          } else if (k == 2) {
-              return i + " " + j;
-          } else {
-              return i + " " + j + " Extract";
-          }
+          return choose([
+              `${choose(plantnames)}`,
+              `${choose(plantnames)} Extract`,
+              `${choose(plantnames)} ${choose(plantparts)}`,
+              `${choose(plantnames)} ${choose(plantparts)} Extract`,
+          ]);
       }
 
       function productgen() {
-          l = choose(items);
-          m = choose(negitems);
-          n = Math.floor(Math.random() * 11);
-          o = Math.floor(Math.random() * 11);
-          if (n == 0) {
-              p = l + " Substitute";
-          } else if (n == 1) {
-              p = "Component of " + l;
-          } else if (n == 2) {
-              p = "Additive for " + l;
-          } else if (n == 3) {
-              p = m + " Eliminator";
-          } else if (n == 4) {
-              p = m + " Indicator";
-          } else if (n == 5) {
-              p = m + " Sensor";
-          } else {
-              p = "Source of " + l;
-          }
-          if (o <= 1) {
-              return "Alternative " + p;
-          } else if (o == 2) {
-              return "Cheaper " + p;
-          } else {
-              return p;
-          }
+          return weighted_choose([
+              ["", 3],
+              ["Alternative ", 1],
+              ["Cheaper ", 1],
+          ]) + weighted_choose([
+              [`${choose(items)} Substitute`, 1],
+              [`Component of ${choose(items)}`, 1],
+              [`Additive for ${choose(items)}`, 1],
+              [`${choose(items)} Eliminator`, 1],
+              [`${choose(items)} Indicator`, 1],
+              [`${choose(items)} Sensor`, 1],
+              [`Source of ${choose(items)}`, 3],
+          ]);
       }
 
       function process() {
-          b = choose(processnames);
-          c = choose(items);
-          d = plantgen();
-          return "The " + b + " of " + c + " from " + d;
+          return `The ${choose(processnames)} of ${choose(items)} of ${plantgen()}`;
       }
 
       function substitute() {
-          b = plantgen();
-          c = productgen();
-          return b + " as " + c;
+          return `${plantgen()} as ${productgen()}`;
       }
 
       function use() {
-          b = choose(usenames);
-          c = plantgen();
-          d = productgen();
-          return "The " + b + " of " + c + " as " + d;
+          return `The ${choose(usenames)} of ${plantgen()} as ${productgen()}`;
       }
 
       function effect() {
-          b = choose(usenames);
-          c = plantgen();
-          d = choose(effectnames);
-          e = factorgen();
-          return "The " + b + " of " + c + " in " + d + " " + e;
+          return `The ${choose(usenames)} of ${plantgen()} in ${choose(effectnames)} ${factorgen()}`;
       }
 
       function antibacterial() {
-          b = plantgen();
-          c = choose(bacteria);
-          d = choose(items);
-          e = Math.floor(Math.random() * 4);
-          if (e == 0) {
-              return "Antibacterial Screening from " + b + " against " + c + " for the Production of Antibacterial " + d;
-          } else {
-              return "Antibacterial Screening from " + b + " against " + c;
-          }
+          return `Antibacterial Screening from ${plantgen()} against ${choose(bacteria)}`
+          + weighted_choose([
+              ["", 3],
+              [` for the Production of Antibacterial ${choose(items)}`, 1],
+          ]);
       }
 
       function agent() {
-          b = choose(usenames);
-          c = plantgen();
-          d = choose(agentthings);
-          return b + " of " + c + " as " + d + " Agent";
+          return `${choose(usenames)} of ${plantgen()} as ${choose(agentthings)} Agent`;
       }
 
       function compare() {
-          b = plantgen();
-          c = choose(items);
-          d = Math.floor(Math.random() * 3);
-          if (d == 0) {
-              return "Comparative Study between Modified " + c + " from " + b + " and Commercial " + c;
-          } else {
-              return "Comparative Study between Modified " + c + " and Commercial " + c;
-          }
+          var item = choose(items);
+          return `Comparative Study between Modified ${item}`
+          + weighted_choose([
+              [` from ${plantgen()}`, 1],
+              ["", 3],
+          ]) + ` and Commercial ${item}`;
       }
 
       function chem() {
-          b = choose(chemicals);
-          c = choose(processnames);
-          d = plantgen();
-          e = Math.floor(Math.random() * 2);
-          if (e == 0) {
-              return b + " " + c + " from " + d;
-          } else {
-              return "The Extraction of " + b + " from " + d;
-          }
+          return choose([
+              `${choose(chemicals)} ${choose(processnames)} from ${plantgen()}`,
+              `The Extraction of ${choose(chemicals)} from ${plantgen()}`,
+          ]);
       }
 
       function combine() {
-          b = choose(usenames);
-          c = plantgen();
-          d = choose(items);
-          e = productgen();
-          return "The " + b + " of Mixture of " + c + " and " + d + " as " + e;
+          return `The ${choose(usenames)} of Mixture of ${plantgen()} and ${choose(items)} as ${productgen()}`;
       }
 
       function cidal() {
-          b = choose(cidalnames);
-          c = plantgen();
-          return "The " + b + " Effect of " + c;
+          return `The ${choose(cidalnames)} Effect of ${plantgen()}`;
       }
 
       function both() {
-          b = plantgen();
-          c = plantgen();
-          d = productgen();
-          return b + " and " + c + " as " + d;
+          return `The ${plantgen()} and ${plantgen()} as ${productgen()}`;
       }
       
       // IE 8 is annoying
@@ -386,8 +321,7 @@
       }
 
       function Generate() {
-          q = randomtitle()
-          rsrch.innerHTML = q
+          rsrch.innerHTML = randomtitle();
       }
       
       //-->
