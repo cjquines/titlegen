@@ -37,7 +37,7 @@
         return choose(new_list);
       }
       
-      var usenames = new Array(
+      var usenames = [
         "Feasibility",
         "Efficacy",
         "Utilization",
@@ -45,69 +45,69 @@
         "Ability",
         "Capability",
         "Capacity",
-        "Effectiveness"
-      )
+        "Effectiveness",
+      ];
 
-      var effectnames = new Array(
+      var effectnames = [
         "Lowering",
         "Extending",
         "Increasing",
-        "Reducing"
-      )
+        "Reducing",
+      ];
 
-      var processnames = new Array(
+      var processnames = [
         "Production",
         "Creation",
-        "Synthesis"
-      )
+        "Synthesis",
+      ];
 
-      var qualities = new Array(
+      var qualities = [
         "Blood Glucose",
         "Life Expectancy",
         "Bleeding Times",
         "Reproduction",
         "Blood Sugar",
-        "Blood Coagulation"
-      )
+        "Blood Coagulation",
+      ];
 
-      var agentthings = new Array(
+      var agentthings = [
         "Antihyperlidemic",
         "Anticoagulant",
         "Antibacterial",
         "Sequestering",
-        "Phytoremediating"
-      )
+        "Phytoremediating",
+      ];
 
-      var chemicals = new Array(
+      var chemicals = [
         "Ethanol",
         "Cellulose",
-        "Glucose"
-      )
+        "Glucose",
+      ];
 
-      var cidalnames = new Array(
+      var cidalnames = [
         "Pediculicidal",
         "Insecticidal",
         "Pesticidal",
         "Molluscicidal",
-        "Larvicidal"
-      )
+        "Larvicidal",
+      ];
 
-      var animals = new Array(
+      var animals = [
         "Dog (Canis familiaris)",
         "Janitor Fish (Hypostomus plecostomus)",
         "Chicken (Gallus domesticus)",
-        "Tilapia (Oreochromis niloticus)"
-      )
+        "Tilapia (Oreochromis niloticus)",
+      ];
 
-      var neganimals = new Array(
+      var neganimals = [
         "Mosquito (Culex pipiens)",
         "Earthworm (Lumbricus terresirus)",
         "Golden Kuhol (Pomacea canalicuata)",
         "Termites (Reticulitermes hesperus)",
-        "Dog Ticks (Rhicephalus sanguineus)"
-      )
+        "Dog Ticks (Rhicephalus sanguineus)",
+      ];
 
-      var plantnames = new Array(
+      var plantnames = [
         "Butones-butonesan (Gomphrena globosa)",
         "Alateris (Muntingia calabura)",
         "Soro-soro (Euphorbia nerrifolia)",
@@ -146,26 +146,26 @@
         "Alugbati (Basella lucida)",
         "Lanzones (Lansium domesticum)",
         "Orange (Citrus sinesis)",
-        "Chayote (Sechium edule)"
-      )
+        "Chayote (Sechium edule)",
+      ];
 
-      var bacteria = new Array(
+      var bacteria = [
         "Staphylococcus aureus",
         "Eschearichia coli",
         "Psuedomonas aeruginosa",
         "Klebsila pneumoniae",
-        "Haemophilus Influenza"
-      )
+        "Haemophilus Influenza",
+      ];
 
-      var plantparts = new Array(
+      var plantparts = [
         "Leaves",
         "Roots",
         "Stems",
         "Fibers",
-        "Seeds"
-      )
+        "Seeds",
+      ];
 
-      var items = new Array(
+      var items = [
         "Latex",
         "Primer",
         "Primer Paint",
@@ -198,16 +198,16 @@
         "Ceramics",
         "Biofuel",
         "Bioelectricty",
-        "Cardboard"
-      )
+        "Cardboard",
+      ];
 
-      var negitems = new Array(
+      var negitems = [
         "Heavy Metal",
         "Oil Spill",
         "Metal",
         "Poison",
-        "Toxin"
-      )
+        "Toxin",
+      ];
 
       function randomtitle() {
           return weighted_choose([
