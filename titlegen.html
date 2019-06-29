@@ -211,25 +211,18 @@
 
       function randomtitle() {
           return weighted_choose([
-              [process(), 4],
-              [substitute(), 4],
-              [use(), 4],
-              [effect(), 4],
+              [use(), 18],
               [antibacterial(), 3],
-              [agent(), 3],
               [compare(), 3],
-              [chem(), 2],
-              [combine(), 2],
-              [cidal(), 2],
-              [both(), 2],
+              [chem(), 3],
+              [process(), 5],
+              [effect(), 4],
+              [eliminate(), 3],
+              [cidal(), 3],
           ]);
       }
 
-      function factorgen() {
-          return `${choose(qualities)} in ${choose(animals)}`;
-      }
-
-      function plantgen() {
+      function partgen() {
           return choose([
               `${choose(plantnames)}`,
               `${choose(plantnames)} Extract`,
@@ -238,56 +231,50 @@
           ]);
       }
 
-      function productgen() {
+      function plantgen() {
           return weighted_choose([
-              ["", 3],
-              ["Alternative ", 1],
-              ["Cheaper ", 1],
-          ]) + weighted_choose([
-              [`${choose(items)} Substitute`, 1],
-              [`Component of ${choose(items)}`, 1],
-              [`Additive for ${choose(items)}`, 1],
-              [`${choose(items)} Eliminator`, 1],
-              [`${choose(items)} Indicator`, 1],
-              [`${choose(items)} Sensor`, 1],
-              [`Source of ${choose(items)}`, 3],
+              [`${partgen()} `, 5],
+              [`${partgen()} and ${partgen()} `, 2],
+              [`Mixture of ${partgen()} and ${choose(items)}`, 2],
           ]);
       }
 
-      function process() {
-          return `The ${choose(processnames)} of ${choose(items)} of ${plantgen()}`;
-      }
-
-      function substitute() {
-          return `${plantgen()} as ${productgen()}`;
-      }
-
       function use() {
-          return `The ${choose(usenames)} of ${plantgen()} as ${productgen()}`;
-      }
-
-      function effect() {
-          return `The ${choose(usenames)} of ${plantgen()} in ${choose(effectnames)} ${factorgen()}`;
+          return weighted_choose([
+              ["", 2],
+              [`The ${choose(usenames)} of `, 3],
+          ]) + plantgen() + weighted_choose([
+              [" as ", 3],
+              [" as Alternative ", 1],
+              [" as Cheaper ", 1],
+          ]) + weighted_choose([
+              [`${choose(items)} Substitute`, 2],
+              [`Component of ${choose(items)}`, 1],
+              [`Additive for ${choose(items)}`, 1],
+              [`${choose(negitems)} Eliminator`, 2],
+              [`${choose(items)} Indicator`, 1],
+              [`${choose(negitems)} Indicator`, 1],
+              [`${choose(items)} Indicator`, 1],
+              [`${choose(negitems)} Sensor`, 1],
+              [`Source of ${choose(items)}`, 2],
+              [`${choose(agentthings)} Agent`, 2],
+          ]);
       }
 
       function antibacterial() {
           return `Antibacterial Screening from ${plantgen()} against ${choose(bacteria)}`
           + weighted_choose([
-              ["", 3],
+              ["", 2],
               [` for the Production of Antibacterial ${choose(items)}`, 1],
           ]);
-      }
-
-      function agent() {
-          return `${choose(usenames)} of ${plantgen()} as ${choose(agentthings)} Agent`;
       }
 
       function compare() {
           var item = choose(items);
           return `Comparative Study between Modified ${item}`
           + weighted_choose([
-              [` from ${plantgen()}`, 1],
-              ["", 3],
+              [` from ${plantgen()}`, 3],
+              ["", 5],
           ]) + ` and Commercial ${item}`;
       }
 
@@ -298,16 +285,20 @@
           ]);
       }
 
-      function combine() {
-          return `The ${choose(usenames)} of Mixture of ${plantgen()} and ${choose(items)} as ${productgen()}`;
+      function process() {
+          return `The ${choose(processnames)} of ${choose(items)} from ${plantgen()}`;
+      }
+
+      function effect() {
+          return `The ${choose(usenames)} of ${plantgen()} in ${choose(effectnames)} ${choose(qualities)} in ${choose(animals)}`;
+      }
+
+      function eliminate() {
+          return `The ${choose(usenames)} of ${plantgen()} to Eliminate ${choose(animals)}`;
       }
 
       function cidal() {
           return `The ${choose(cidalnames)} Effect of ${plantgen()}`;
-      }
-
-      function both() {
-          return `The ${plantgen()} and ${plantgen()} as ${productgen()}`;
       }
       
       // IE 8 is annoying
